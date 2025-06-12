@@ -6,6 +6,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import Navbar from "../components/navbar";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -22,6 +23,7 @@ export const Route = createRootRoute({
       },
     ],
   }),
+
   component: RootComponent,
 });
 
@@ -40,6 +42,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body>
+        <Navbar />
         {children}
         <Scripts />
       </body>
