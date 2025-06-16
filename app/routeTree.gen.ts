@@ -15,6 +15,7 @@ import { Route as UsersImport } from './routes/users'
 import { Route as PostsRouteImport } from './routes/posts/route'
 import { Route as IndexImport } from './routes/index'
 import { Route as PostsIndexImport } from './routes/posts/index'
+import { Route as ConvexIndexImport } from './routes/convex/index'
 import { Route as PostsPostIdImport } from './routes/posts/$postId'
 
 // Create/Update Routes
@@ -41,6 +42,12 @@ const PostsIndexRoute = PostsIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PostsRouteRoute,
+} as any)
+
+const ConvexIndexRoute = ConvexIndexImport.update({
+  id: '/convex/',
+  path: '/convex/',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const PostsPostIdRoute = PostsPostIdImport.update({
@@ -81,6 +88,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPostIdImport
       parentRoute: typeof PostsRouteImport
     }
+    '/convex/': {
+      id: '/convex/'
+      path: '/convex'
+      fullPath: '/convex'
+      preLoaderRoute: typeof ConvexIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/posts/': {
       id: '/posts/'
       path: '/'
@@ -112,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/posts': typeof PostsRouteRouteWithChildren
   '/users': typeof UsersRoute
   '/posts/$postId': typeof PostsPostIdRoute
+  '/convex': typeof ConvexIndexRoute
   '/posts/': typeof PostsIndexRoute
 }
 
@@ -119,6 +134,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/users': typeof UsersRoute
   '/posts/$postId': typeof PostsPostIdRoute
+  '/convex': typeof ConvexIndexRoute
   '/posts': typeof PostsIndexRoute
 }
 
@@ -128,15 +144,29 @@ export interface FileRoutesById {
   '/posts': typeof PostsRouteRouteWithChildren
   '/users': typeof UsersRoute
   '/posts/$postId': typeof PostsPostIdRoute
+  '/convex/': typeof ConvexIndexRoute
   '/posts/': typeof PostsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/posts' | '/users' | '/posts/$postId' | '/posts/'
+  fullPaths:
+    | '/'
+    | '/posts'
+    | '/users'
+    | '/posts/$postId'
+    | '/convex'
+    | '/posts/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/users' | '/posts/$postId' | '/posts'
-  id: '__root__' | '/' | '/posts' | '/users' | '/posts/$postId' | '/posts/'
+  to: '/' | '/users' | '/posts/$postId' | '/convex' | '/posts'
+  id:
+    | '__root__'
+    | '/'
+    | '/posts'
+    | '/users'
+    | '/posts/$postId'
+    | '/convex/'
+    | '/posts/'
   fileRoutesById: FileRoutesById
 }
 
@@ -144,12 +174,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PostsRouteRoute: typeof PostsRouteRouteWithChildren
   UsersRoute: typeof UsersRoute
+  ConvexIndexRoute: typeof ConvexIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PostsRouteRoute: PostsRouteRouteWithChildren,
   UsersRoute: UsersRoute,
+  ConvexIndexRoute: ConvexIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -164,7 +196,8 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/posts",
-        "/users"
+        "/users",
+        "/convex/"
       ]
     },
     "/": {
@@ -183,6 +216,9 @@ export const routeTree = rootRoute
     "/posts/$postId": {
       "filePath": "posts/$postId.tsx",
       "parent": "/posts"
+    },
+    "/convex/": {
+      "filePath": "convex/index.tsx"
     },
     "/posts/": {
       "filePath": "posts/index.tsx",
