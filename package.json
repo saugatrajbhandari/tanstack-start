@@ -9,11 +9,16 @@
     "build": "vinxi build",
     "start": "vinxi start"
   },
+  "prisma":{
+    "seed": "tsx prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@prisma/client": "^6.9.0",
+    "@prisma/extension-accelerate": "^2.0.1",
     "@tanstack/react-router": "^1.120.16",
     "@tanstack/react-start": "^1.120.16",
     "react": "^19.1.0",
@@ -24,6 +29,8 @@
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.1",
+    "prisma": "^6.9.0",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "vite-tsconfig-paths": "^5.1.4"
   }
